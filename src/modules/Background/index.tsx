@@ -14,7 +14,7 @@ const Background: React.FC = () => {
             .then(data => {
                 //document.body.style.backgroundImage = `url(${data.urls.regular})`
             }); */
-            document.body.style.background = `gray`
+        document.body.style.background = `gray`
     }, [refresh])
 
     return <>

@@ -16,7 +16,7 @@ function App<FC>() {
         <Watch />
         <Quote />
       </main>
-      <footer>
+      <footer className='footer'>
         <Background />
       </footer>
     </>

@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react"
-import AudioPlayer from "./AudioPlayer"
+import AudioPlayer from "./components/AudioPlayer"
+import css from "./components/Audio.module.css"
+import PlayList from "./components/PlayList"
 
 function getMinutes(second: number): string {
 
@@ -9,7 +11,7 @@ function getMinutes(second: number): string {
     return `${minutes}:${sec}`
 }
 
-const playList = [
+export const playList = [
     {
         title: "sec5",
         src: "/sec5.mp3",
@@ -27,10 +29,11 @@ const Audio: React.FC = () => {
     const [progress, setProgress] = useState(0);
     const [isPause, setIsPause] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
+    const [indexSong, setIndexSong] = useState(0);
 
     const btn = useRef<HTMLButtonElement>(null);
 
-    getMinutes(playList[0].duration)
+    getMinutes(playList[indexSong].duration)
 
     const toggleAudio = () => {
         if (!isPause) {
@@ -44,9 +47,11 @@ const Audio: React.FC = () => {
 
 
     useEffect(() => {
-        AudioPlayer.src = playList[0].src
-        AudioPlayer.currentTime = currentTime
-    }, [])
+        AudioPlayer.src = playList[indexSong].src;
+        AudioPlayer.currentTime = currentTime;
+        setProgress(0)
+        setCurrentTime(0)
+    }, [indexSong])
 
     useEffect(() => {
 
@@ -58,7 +63,7 @@ const Audio: React.FC = () => {
             setCurrentTime(prev => prev + 1)
         }, 1000)
 
-        if (currentTime >= playList[0].duration) {
+        if (currentTime >= playList[indexSong].duration) {
             return clearInterval(timerId)
         }
 
@@ -75,7 +80,7 @@ const Audio: React.FC = () => {
         }
 
         const timerId = setTimeout(() => {
-            setProgress(prev => (prev + (1000 / playList[0].duration)))
+            setProgress(prev => (prev + (1000 / playList[indexSong].duration)))
         }, 1000)
 
         if (progress >= 1000) {
@@ -85,19 +90,19 @@ const Audio: React.FC = () => {
         return () => { clearTimeout(timerId) }
     }, [isPause, progress])
 
-
     return (
-        <div style={{ marginTop: "75px" }}>
-            <div>
-                <button ref={btn} onClick={toggleAudio} >
+        <>
+            <div className={css.audio} >
+                <div className={css.progress}>
+                    <span className={css.time}>{getMinutes(playList[indexSong].duration)} / {getMinutes(currentTime)}</span>
+                    <progress max={1000} value={progress} />
+                </div>
+                <button className={css.btn} ref={btn} onClick={toggleAudio} >
                     {isPause ? "play" : "pause"}
                 </button>
             </div>
-            <div>
-                <span>{getMinutes(playList[0].duration)} / {getMinutes(currentTime)}</span>
-                <progress max={1000} value={progress} />
-            </div>
-        </div>
+            <PlayList setIndex={setIndexSong} />
+        </>
     )
 }
 

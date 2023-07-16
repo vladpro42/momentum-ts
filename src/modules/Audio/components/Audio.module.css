@@ -1,0 +1,22 @@
+.audio {
+    background: gray;
+    color: #fff;
+    margin-top: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn {
+
+}
+
+.progress {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+.time {
+    margin-right: 20px;
+}

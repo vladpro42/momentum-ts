@@ -1,3 +1,7 @@
+.track__list {
+    margin-left: 20px;
+}
+
 .track__item {
     cursor: pointer;
 }

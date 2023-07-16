@@ -91,7 +91,7 @@ const Audio: React.FC = () => {
     }, [isPause, progress])
 
     return (
-        <>
+        <div className={css.audio__container}>
             <div className={css.audio} >
                 <div className={css.progress}>
                     <span className={css.time}>{getMinutes(playList[indexSong].duration)} / {getMinutes(currentTime)}</span>
@@ -101,8 +101,8 @@ const Audio: React.FC = () => {
                     {isPause ? "play" : "pause"}
                 </button>
             </div>
-            <PlayList setIndex={setIndexSong} />
-        </>
+            <PlayList indexSong={indexSong} setIndex={setIndexSong} />
+        </div>
     )
 }
 

@@ -9,7 +9,6 @@ function App<FC>() {
   return (
     <>
       <header className="header">
-        <Audio />
         <Weather />
       </header>
       <main className='main'>
@@ -17,6 +16,7 @@ function App<FC>() {
         <Quote />
       </main>
       <footer className='footer'>
+        <Audio />
         <Background />
       </footer>
     </>

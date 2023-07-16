@@ -7,3 +7,16 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

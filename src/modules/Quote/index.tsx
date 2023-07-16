@@ -1,6 +1,7 @@
 import quotes from "./quotes.json";
 import { useState } from 'react';
 import { randomInteger } from './utils';
+import css from "./Quote.module.css"
 
 const Quote: React.FC = () => {
 
@@ -18,10 +19,10 @@ const Quote: React.FC = () => {
     }
 
     return (
-        <div>
-            <p>{quote.qoute}</p>
-            <p>{quote.author}</p>
-            <button onClick={handleClick}>reset quote</button>
+        <div className={css.quote}>
+            <p className={css.text}>{quote.qoute}</p>
+            <p className={css.author}>{quote.author}</p>
+            <button className={css.reset} onClick={handleClick}>reset quote</button>
         </div>
     )
 

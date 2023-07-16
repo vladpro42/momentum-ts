@@ -7,13 +7,19 @@ import Audio from './modules/Audio';
 
 function App<FC>() {
   return (
-    <div className="App">
-      <Watch />
-      <Background />
-      <Weather />
-      <Quote />
-      <Audio />
-    </div>
+    <>
+      <header className="header">
+        <Audio />
+        <Weather />
+      </header>
+      <main className='main'>
+        <Watch />
+        <Quote />
+      </main>
+      <footer>
+        <Background />
+      </footer>
+    </>
   );
 }
 

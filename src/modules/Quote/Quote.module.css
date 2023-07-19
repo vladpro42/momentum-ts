@@ -3,6 +3,9 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    color: #fff;
+    margin-top: 15px;
+    font-size: 22px;
 }
 
 .text {

@@ -1,4 +1,4 @@
-import { playList } from "../index"
+import { trackList } from "../trackList"
 import css from "./PlayList.module.css"
 
 type Props = {
@@ -14,7 +14,7 @@ const PlayList: React.FC<Props> = ({ setIndex, indexSong }) => {
     return (
         <ul className={css.track__list}>
             {
-                playList.map((song, index) => {
+                trackList.map((song, index) => {
                     return <li
                         onClick={() => handleClick(index)}
                         className={css.track__item}

@@ -4,4 +4,7 @@
 
 .track__item {
     cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
 }

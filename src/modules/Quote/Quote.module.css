@@ -8,14 +8,18 @@
     font-size: 22px;
 }
 
-.text {
+.text {}
 
-}
-
-.author {
-
-}
+.author {}
 
 .reset {
-    
+    margin-top: 15px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+        color: lightgray;
+    }
 }

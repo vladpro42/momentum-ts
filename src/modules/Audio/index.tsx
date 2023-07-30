@@ -9,76 +9,84 @@ import { getMinutes } from "./utils/utils"
 const Audio: React.FC = () => {
 
     const [progress, setProgress] = useState(0);
-    const [isPause, setIsPause] = useState(true);
+    const [isPlying, setIsPlying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [indexSong, setIndexSong] = useState(0);
 
     const btn = useRef<HTMLButtonElement>(null);
 
-    getMinutes(trackList[indexSong].duration)
+    const time = getMinutes(trackList[indexSong].duration)
+    const curTime = getMinutes(currentTime)
 
     const toggleAudio = () => {
-        if (!isPause) {
+        if (isPlying) {
             AudioPlayer.pause()
-            setIsPause(true)
+            setIsPlying(false)
             return
         }
         AudioPlayer.play()
-        setIsPause(false)
+        setIsPlying(true)
     }
-
 
     useEffect(() => {
         AudioPlayer.src = trackList[indexSong].src;
-        AudioPlayer.currentTime = currentTime;
+        AudioPlayer.currentTime = 0;
         setProgress(0)
         setCurrentTime(0)
+        setIsPlying(false)
     }, [indexSong])
 
-    useEffect(() => {
+    AudioPlayer.onended = () => {
+        setProgress(0)
+        setCurrentTime(0)
+        setIsPlying(false)
+    };
 
-        if (isPause) {
+    useEffect(() => {
+        if (!isPlying) {
             return () => { }
         }
 
         const timerId = setInterval(() => {
-            setCurrentTime(prev => prev + 1)
+            setProgress(prev =>
+                prev + Math.floor(1000 / trackList[indexSong].duration)
+            )
         }, 1000)
-
-        if (currentTime >= trackList[indexSong].duration) {
-            return clearInterval(timerId)
-        }
 
         return () => {
             clearInterval(timerId)
         }
 
-    }, [isPause, currentTime])
+    }, [isPlying])
 
     useEffect(() => {
 
-        if (isPause) {
+        if (!isPlying) {
             return () => { }
         }
 
-        const timerId = setTimeout(() => {
-            setProgress(prev => (prev + (1000 / trackList[indexSong].duration)))
+        const intervalId = setInterval(() => {
+            setCurrentTime(prev => prev + 1)
+            console.log(currentTime)
+
         }, 1000)
 
-        if (progress >= 1000) {
-            return clearTimeout(timerId)
-        }
 
-        return () => { clearTimeout(timerId) }
-    }, [isPause, progress])
+        return () => {
+            clearInterval(intervalId)
+        }
+    }, [isPlying, currentTime])
+
 
     return (
         <div className={css.audio__container}>
             <div className={css.audio} >
-                <span className={css.time}>{getMinutes(trackList[indexSong].duration)} / {getMinutes(currentTime)}</span>
+                <span className={css.time}>
+                    {time.min}:{time.sec} / {curTime.min}:{curTime.sec}
+                </span>
                 <progress className={css.progressBar} max={1000} value={progress} />
                 <button className={css.btn} ref={btn} onClick={toggleAudio} >
-                    {isPause ? "play" : "pause"}
+                    {isPlying ? "pause" : "play"}
                 </button>
             </div>
             <PlayList indexSong={indexSong} setIndex={setIndexSong} />

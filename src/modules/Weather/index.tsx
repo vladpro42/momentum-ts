@@ -30,18 +30,17 @@ const Weather: React.FC = () => {
 
     return (
         <div className={css.weather}>
-            <label>
-
+            <label className={css.label}>
+                <input type="text" value={city}
+                    onChange={e => handleChange(e)}
+                />
+                <button onClick={submitWeather}>Submit</button>
             </label>
-            <input type="text" value={city}
-                onChange={e => handleChange(e)}
-            />
-            <button onClick={submitWeather}>Submit</button>
 
             {
                 !weather?.message ? (<div className={css.descr}>
                     <h3 className={css.title}>
-                        В {weather?.name} сейчас {weather?.weather[0].description}
+                        В {weather?.name} <br /> сейчас {weather?.weather[0].description}
                     </h3>
                     <p className={css.weathr__descr}>Влажность {weather?.main.humidity} %</p>
                     <p className={css.weathr__descr}>Температура {weather?.main.temp} </p>

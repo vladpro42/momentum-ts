@@ -6,7 +6,12 @@
     color: #fff;
 }
 
+.label {
+    
+}
+
 .title {
+    text-align: center;
     border-bottom: 1px solid #fff;
     padding-bottom: 5px;
     margin-bottom: 10px;

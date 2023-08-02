@@ -18,9 +18,14 @@
     border: none;
     outline: none;
     border-bottom: 2px solid lightgray;
-    font-size: 1.5rem;
     font-weight: 600;
     color: #fff;
     width: 125px;
     font-size: 26px;
+}
+
+@media (max-width: 590px) {
+    .clock {
+        font-size: 18px;
+    }
 }

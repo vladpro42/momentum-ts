@@ -16,7 +16,7 @@
 }
 
 .btn {
-    margin-right: 10px;
+    margin: 0 10px;    
 }
 
 .progress {
@@ -24,9 +24,17 @@
 }
 
 .progressBar {
-    width: 80%;
+   /*  width: 80%; */
+   flex: 1 2 auto;
 }
 
 .time {
     margin: 0 20px;
+}
+
+@media (max-width: 717px) {
+    .time {
+        margin: 0 5px;
+    }
+
 }

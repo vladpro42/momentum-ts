@@ -11,7 +11,15 @@ const Quote: React.FC = () => {
     const [randomNum, setRandomNum] = useState(randomInteger(max));
     const quote = quotesArray[randomNum - 1];
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+        const target = e.currentTarget
+        target.classList.add(`${css.resetActive}`)
+
+        setTimeout(() => {
+            target.classList.remove(`${css.resetActive}`)
+        }, 500)
+
         let random = randomInteger(max);
         if (randomNum === random) {
             random = randomInteger(max);
@@ -23,7 +31,7 @@ const Quote: React.FC = () => {
         <div className={css.quote}>
             <p className={css.text}>{quote.qoute}</p>
             <p className={css.author}>{quote.author}</p>
-            <button className={css.reset} onClick={handleClick}>
+            <button className={css.reset} onClick={e => handleClick(e)}>
                 <ResetButton />
             </button>
         </div>

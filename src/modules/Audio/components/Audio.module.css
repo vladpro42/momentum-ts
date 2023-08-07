@@ -15,8 +15,31 @@
     height: 30px;
 }
 
+.volume {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume__input {
+    max-width: 80px;
+    height: 10px;
+}
+
+.volume__icon {
+    fill: #fff;
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .btn {
-    margin: 0 10px;    
+    margin: 0 10px;
+    background: transparent;
+    border: none;
 }
 
 .progress {
@@ -24,8 +47,8 @@
 }
 
 .progressBar {
-   /*  width: 80%; */
-   flex: 1 2 auto;
+    /*  width: 80%; */
+    flex: 1 2 auto;
 }
 
 .time {

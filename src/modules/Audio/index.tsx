@@ -4,6 +4,10 @@ import css from "./components/Audio.module.css"
 import PlayList from "./components/PlayList"
 import { trackList } from "./trackList"
 import { getMinutes } from "./utils/utils"
+import { PauseSvg } from "./components/PauseSvg"
+import { PlaySvg } from "./components/PlaySvg"
+import Volume from "./components/Volume"
+import { getLocalStorage } from "../../utils/globalUtils"
 
 
 const Audio: React.FC = () => {
@@ -12,6 +16,7 @@ const Audio: React.FC = () => {
     const [isPlying, setIsPlying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [indexSong, setIndexSong] = useState(0);
+    const [volume, setVolume] = useState<number>(getLocalStorage<number>("volume") || 50)
 
     const btn = useRef<HTMLButtonElement>(null);
 
@@ -41,6 +46,10 @@ const Audio: React.FC = () => {
         setCurrentTime(0)
         setIsPlying(false)
     };
+
+    useEffect(() => {
+        AudioPlayer.volume = volume / 100
+    }, [volume])
 
     useEffect(() => {
         if (!isPlying) {
@@ -77,16 +86,59 @@ const Audio: React.FC = () => {
         }
     }, [isPlying, currentTime])
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVolume(+e.currentTarget.value)
+    }
+
+    const toggleVolume = () => {
+
+
+        if (volume > 0) {
+            localStorage.setItem("volume", JSON.stringify(volume))
+            setVolume(0)
+        }
+
+        if (volume === 0) {
+            const volumeJSON = localStorage.getItem("volume")
+            if (!volumeJSON) {
+                return
+            }
+            setVolume(JSON.parse(volumeJSON))
+        }
+
+    }
+
+    console.log(volume)
 
     return (
         <div className={css.audio__container}>
             <div className={css.audio} >
                 <span className={css.time}>
-                    {time.min}:{time.sec} / {curTime.min}:{curTime.sec}
+                    {curTime.min}:{curTime.sec} / {time.min}:{time.sec}
                 </span>
                 <progress className={css.progressBar} max={1000} value={progress} />
+                <Volume
+                    onClick={toggleVolume}
+                    className={css.volume__icon}
+                    volume={volume}
+                    width={40}
+                    height={40}
+                />
+                <div className={css.volume}>
+                    <input
+                        className={css.volume__input}
+                        type="range"
+                        max={100}
+                        min={0}
+                        step={1}
+                        value={volume}
+                        onChange={e => handleChange(e)}
+                    />
+                </div>
                 <button className={css.btn} ref={btn} onClick={toggleAudio} >
-                    {isPlying ? "pause" : "play"}
+                    {isPlying ?
+                        <PauseSvg fill="#fff" width="20px" height="20px" />
+                        : <PlaySvg fill="#fff" width="20px" height="20px" />}
                 </button>
             </div>
             <PlayList indexSong={indexSong} setIndex={setIndexSong} />
@@ -95,3 +147,5 @@ const Audio: React.FC = () => {
 }
 
 export default Audio
+
+

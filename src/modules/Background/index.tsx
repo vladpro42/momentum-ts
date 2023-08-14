@@ -13,7 +13,7 @@ const Background: React.FC = () => {
                 document.body.style.background = `url(${data.urls.regular}) no-repeat`
                 document.body.style.backgroundSize = `cover`
             })
-            .catch(err => console.log(err))
+            .catch(err => document.body.style.background = "gray")
     }
 
     useEffect(() => {

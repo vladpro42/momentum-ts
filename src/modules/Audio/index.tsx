@@ -76,7 +76,6 @@ const Audio: React.FC = () => {
 
         const intervalId = setInterval(() => {
             setCurrentTime(prev => prev + 1)
-            console.log(currentTime)
 
         }, 1000)
 
@@ -108,7 +107,6 @@ const Audio: React.FC = () => {
 
     }
 
-    console.log(volume)
 
     return (
         <div className={css.audio__container}>
@@ -121,8 +119,6 @@ const Audio: React.FC = () => {
                     onClick={toggleVolume}
                     className={css.volume__icon}
                     volume={volume}
-                    width={40}
-                    height={40}
                 />
                 <div className={css.volume}>
                     <input

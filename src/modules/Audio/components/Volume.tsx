@@ -6,29 +6,17 @@ import { BsFillVolumeOffFill } from "react-icons/bs"
 
 type PropsVolume = {
     volume: number
-    width: number | string
-    height: number | string
     onClick: () => void
     className?: string | undefined
 }
 
-const Volume = ({ width, height, volume, className, onClick }: PropsVolume) => {
+const Volume = ({ volume, className, onClick }: PropsVolume) => {
 
-    if (volume === 0) {
-        return <BsFillVolumeMuteFill
-            onClick={onClick}
-            className={className}
-            width={width}
-            height={height}
-        />
-    }
 
     if (volume <= 20 && volume != 0) {
         return <BsFillVolumeOffFill
             onClick={onClick}
             className={className}
-            width={width}
-            height={height}
         />
     }
 
@@ -36,8 +24,6 @@ const Volume = ({ width, height, volume, className, onClick }: PropsVolume) => {
         return <BsFillVolumeDownFill
             onClick={onClick}
             className={className}
-            width={width}
-            height={height}
         />
     }
 
@@ -45,12 +31,13 @@ const Volume = ({ width, height, volume, className, onClick }: PropsVolume) => {
         return <BsFillVolumeUpFill
             onClick={onClick}
             className={className}
-            width={"40px"}
-            height={"40px"}
         />
     }
 
-    return null
+    return <BsFillVolumeMuteFill
+        onClick={onClick}
+        className={className}
+    />
 }
 
 export default Volume
